@@ -56,44 +56,44 @@ while ($row = mysqli_fetch_assoc($result)) {
     ?>
 
     <!-- Hero Section -->
-    <section class=" min-h-screen   p-5 px-24">
-        <div class="w-full mx-auto bg-white rounded-sm shadow-sm py-5 px-10">
-            <h1 class="text-2xl font-bold mb-6 text-gray-700">สัญญาเช่าของฉัน</h1>
+    <section class="min-h-screen p-4 sm:p-6 lg:p-8 xl:px-24">
+        <div class="w-full mx-auto bg-white rounded-lg shadow-sm py-4 px-4 sm:py-6 sm:px-6 lg:py-8 lg:px-10">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gray-700">สัญญาเช่าของฉัน</h1>
 
             <?php if (empty($contracts)): ?>
-                <div class="text-center text-gray-500">ยังไม่มีสัญญาเช่า</div>
+                <div class="text-center text-gray-500 py-12">
+                    <i class="fas fa-file-contract text-5xl text-gray-300 mb-4"></i>
+                    <p>ยังไม่มีสัญญาเช่า</p>
+                </div>
             <?php else: ?>
-                <div class="grid gap-4">
+                <div class="grid gap-3 sm:gap-4">
                     <?php foreach ($contracts as $contract): ?>
-                        <div class="contract-item p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition"
-                            onclick="window.location.href = 'contract_detail.php?rent_id=<?= $contract['rent_id'] ?>' "
-                        >
-                            <div class="flex justify-between items-center">
-                                <div>
+                        <div class="contract-item p-3 sm:p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition cursor-pointer"
+                            onclick="window.location.href = 'contract_detail.php?rent_id=<?= $contract['rent_id'] ?>' ">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
+                                <div class="flex-1 w-full sm:w-auto">
                                     <div class="flex items-center mb-2">
-                                        <i class="fas fa-file-contract text-blue-500 mr-2"></i>
-                                        <span class="font-semibold text-gray-800">
+                                        <i class="fas fa-file-contract text-blue-500 mr-2 text-sm sm:text-base"></i>
+                                        <span class="font-semibold text-gray-800 text-sm sm:text-base">
                                             รหัสสัญญา: <?= $contract['rent_id'] ?>
                                         </span>
                                     </div>
-                                    <div class="flex items-center text-sm text-gray-600">
+                                    <div class="flex items-center text-xs sm:text-sm text-gray-600">
                                         <i class="fas fa-user mr-2"></i>
                                         <span>ผู้เช่า: <?= htmlspecialchars($contract['user_name']) ?></span>
                                     </div>
-                                    <div class="flex items-center text-sm text-gray-600 mt-1">
+                                    <div class="flex items-center text-xs sm:text-sm text-gray-600 mt-1">
                                         <i class="fas fa-calendar-alt mr-2"></i>
                                         <span>วันที่เริ่ม: <?= formatThaiShortDateTime($contract['start_date']) ?></span>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <div class="px-4 py-2 bg-red-50 rounded-lg border border-red-200">
-                                        <i class="fas fa-clock text-red-500 mr-2"></i>
-                                        <span class="text-red-600 font-semibold">
+                                <div class="w-full sm:w-auto">
+                                    <div class="px-3 py-2 bg-red-50 rounded-lg border border-red-200 text-center sm:text-right">
+                                        <i class="fas fa-clock text-red-500 mr-1 sm:mr-2"></i>
+                                        <span class="text-red-600 font-semibold text-xs sm:text-sm">
                                             สิ้นสุด: <?= formatThaiShortDateTime($contract['end_date']) ?>
                                         </span>
                                     </div>
-                                    
-
                                 </div>
                             </div>
                         </div>

@@ -93,72 +93,64 @@ $totalRemaining = $totalAmount - $totalPaid;
     <title>Contract Viewer - Rent ID: <?= $rent_id ?></title>
 </head>
 
-<body class=" h-screen">
+<body class="min-h-screen bg-gray-50">
 
-    <div class=" h-screen gap-2 gap-y-24 row-h sticky">
-
-        <div class="col-span-5">
-            <?php include('./components/navbar.php') ?>
-        </div>
+    <div class="min-h-screen">
+        <?php include('./components/navbar.php') ?>
 
         <!-- Main Content -->
-        <div class="">
-
-            <div class=" w-full mx-24 col-span-5 rounded row-span-8 mx-auto overflow-auto p-6">
+        <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-24 py-4 sm:py-6">
+            <div class="max-w-7xl mx-auto">
                 <!-- Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <a href="my_contracts.php" class="btn btn-ghost mr-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+                    <div class="flex items-center w-full sm:w-auto">
+                        <a href="my_contracts.php" class="btn btn-ghost btn-sm sm:btn-md mr-2 sm:mr-4">
                             <i class="fas fa-arrow-left"></i>
                         </a>
                         <div>
-                            <h1 class="text-2xl font-bold">ใบสัญญาการเช่า</h1>
-                            <p class="text-gray-600">Rent ID: <?= $rent_id ?></p>
+                            <h1 class="text-lg sm:text-xl lg:text-2xl font-bold">ใบสัญญาการเช่า</h1>
+                            <p class="text-xs sm:text-sm text-gray-600">Rent ID: <?= $rent_id ?></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tab Navigation -->
-                <div  class="tabs tabs-bordered">
-                    <input type="radio" name="contract_tabs" role="tab" class="tab" aria-label="ข้อมูลการเช่า" checked="checked">
+                <div class="tabs tabs-bordered overflow-x-auto">
+                    <input type="radio" name="contract_tabs" role="tab" class="tab text-xs sm:text-sm whitespace-nowrap" aria-label="ข้อมูลการเช่า" checked="checked">
                     <!-- Tab Content: Rent Details -->
-                    <div id="rent-details" role="tabpanel" class="tab-content p-6" checked="checked">
+                    <div id="rent-details" role="tabpanel" class="tab-content p-3 sm:p-4 lg:p-6" checked="checked">
                         <!-- Contract Info Card -->
-                        <div class="card bg-white shadow-lg mb-6">
-                            <div class="card-body">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex">
-                                        <div
-                                            class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                                            <i class="fas fa-file-contract text-white text-lg"></i>
+                        <div class="card bg-white shadow-lg mb-4 sm:mb-6">
+                            <div class="card-body p-4 sm:p-6">
+                                <div class="flex items-center justify-between mb-4 sm:mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+                                            <i class="fas fa-file-contract text-white text-sm sm:text-lg"></i>
                                         </div>
-                                        <h2 class="card-title text-xl font-bold text-gray-800">ข้อมูลการเช่า</h2>
+                                        <h2 class="text-base sm:text-lg lg:text-xl font-bold text-gray-800">ข้อมูลการเช่า</h2>
                                     </div>
                                 </div>
 
                                 <!-- ข้อมูล -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                                     <!-- Left Column -->
-                                    <div class="space-y-4">
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-blue-500">
-                                            <label
-                                                class="text-sm font-semibold text-blue-600 uppercase tracking-wide">ผู้เช่า</label>
-                                            <p class="text-lg font-medium text-gray-800 mt-1">
+                                    <div class="space-y-3 sm:space-y-4">
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-blue-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-wide">ผู้เช่า</label>
+                                            <p class="text-sm sm:text-base lg:text-lg font-medium text-gray-800 mt-1">
                                                 <?= htmlspecialchars($contract_data['user_name']) ?>
                                             </p>
                                         </div>
 
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-green-500">
-                                            <label
-                                                class="text-sm font-semibold text-green-600 uppercase tracking-wide">ผู้อนุมัติ</label>
-                                            <p class="text-lg font-medium text-gray-800 mt-1">
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-green-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-green-600 uppercase tracking-wide">ผู้อนุมัติ</label>
+                                            <p class="text-sm sm:text-base lg:text-lg font-medium text-gray-800 mt-1">
                                                 ประเภทอุปกรณ์
                                             </p>
                                         </div>
 
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-purple-500">
-                                            <label
-                                                class="text-sm font-semibold text-purple-600 uppercase tracking-wide">สถานะใบสัญญา</label>
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-purple-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-purple-600 uppercase tracking-wide">สถานะใบสัญญา</label>
                                             <div class="mt-2">
                                                 <?php
                                                 switch ($contract_data['rent_status']) {
@@ -180,57 +172,52 @@ $totalRemaining = $totalAmount - $totalPaid;
                                     </div>
 
                                     <!-- Right Column -->
-                                    <div class="space-y-4">
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-orange-500">
-                                            <label
-                                                class="text-sm font-semibold text-orange-600 uppercase tracking-wide">วันที่เริ่มต้น</label>
+                                    <div class="space-y-3 sm:space-y-4">
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-orange-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-orange-600 uppercase tracking-wide">วันที่เริ่มต้น</label>
                                             <div class="flex items-center mt-1">
-                                                <i class="fas fa-calendar-alt text-orange-500 mr-2"></i>
-                                                <p class="text-lg font-medium text-gray-800">
+                                                <i class="fas fa-calendar-alt text-orange-500 mr-2 text-sm"></i>
+                                                <p class="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
                                                     <?= date('d/m/Y', strtotime($contract_data['start_date'])) ?>
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-red-500">
-                                            <label
-                                                class="text-sm font-semibold text-red-600 uppercase tracking-wide">วันที่สิ้นสุด</label>
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-red-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-red-600 uppercase tracking-wide">วันที่สิ้นสุด</label>
                                             <div class="flex items-center mt-1">
-                                                <i class="fas fa-calendar-times text-red-500 mr-2"></i>
-                                                <p class="text-lg font-medium text-gray-800">
+                                                <i class="fas fa-calendar-times text-red-500 mr-2 text-sm"></i>
+                                                <p class="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
                                                     <?= date('d/m/Y', strtotime($contract_data['end_date'])) ?>
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-indigo-500">
-                                            <label
-                                                class="text-sm font-semibold text-indigo-600 uppercase tracking-wide">ระยะเวลาเช่า</label>
+                                        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-indigo-500">
+                                            <label class="text-xs sm:text-sm font-semibold text-indigo-600 uppercase tracking-wide">ระยะเวลาเช่า</label>
                                             <div class="flex items-center mt-1">
-                                                <i class="fas fa-hourglass-half text-indigo-500 mr-2"></i>
+                                                <i class="fas fa-hourglass-half text-indigo-500 mr-2 text-sm"></i>
                                                 <?php
                                                 $start = new DateTime($contract_data['start_date']);
                                                 $end = new DateTime($contract_data['end_date']);
                                                 $diff = $start->diff($end);
                                                 $days = $diff->days;
                                                 ?>
-                                                <p class="text-lg font-medium text-gray-800"><?= $days ?> วัน</p>
+                                                <p class="text-sm sm:text-base lg:text-lg font-medium text-gray-800"><?= $days ?> วัน</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-6 pt-6 border-t border-gray-200">
-                                    <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                                <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+                                    <div class="bg-green-50 rounded-lg p-3 sm:p-4 border border-green-200">
                                         <div class="flex items-start">
                                             <div class="flex-shrink-0">
-                                                <i class="fas fa-tools text-green-600 text-lg mt-1"></i>
+                                                <i class="fas fa-tools text-green-600 text-sm sm:text-lg mt-1"></i>
                                             </div>
-                                            <div class="ml-3 flex-1 relative">
-                                                <label
-                                                    class="text-sm font-semibold text-green-700 uppercase tracking-wide">ข้อมูลการตรวจสอบ
-                                                    PM</label>
-                                                <p class="text-gray-700 mt-2 leading-relaxed">
+                                            <div class="ml-2 sm:ml-3 flex-1">
+                                                <label class="text-xs sm:text-sm font-semibold text-green-700 uppercase tracking-wide">ข้อมูลการตรวจสอบ PM</label>
+                                                <p class="text-xs sm:text-sm text-gray-700 mt-1 sm:mt-2 leading-relaxed">
                                                     <strong>รอบถัดไป:</strong> <?= $next_pm_date->format('d/m/Y') ?>
                                                     (ทุก 3 เดือน)
                                                 </p>
@@ -243,9 +230,9 @@ $totalRemaining = $totalAmount - $totalPaid;
 
                         <!-- Contract File Section -->
                         <div class="card bg-white shadow-lg">
-                            <div class="card-body">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h2 class="card-title">ไฟล์ใบสัญญา</h2>
+                            <div class="card-body p-4 sm:p-6">
+                                <div class="flex items-center justify-between mb-3 sm:mb-4">
+                                    <h2 class="text-base sm:text-lg font-bold">ไฟล์ใบสัญญา</h2>
                                 </div>
 
                                 <?php if ($contract_data['file_lease']): ?>
@@ -255,7 +242,7 @@ $totalRemaining = $totalAmount - $totalPaid;
                                     $file_size = file_exists($file_path) ? filesize($file_path) : 0;
                                     ?>
 
-                                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 lg:p-6">
                                         <div class="flex items-center justify-center">
                                             <div class="text-center">
                                                 <?php if ($file_extension === 'pdf'): ?>
@@ -299,42 +286,40 @@ $totalRemaining = $totalAmount - $totalPaid;
                         </div>
                     </div>
 
-                    <input type="radio" name="contract_tabs" role="tab" class="tab" aria-label="รายการอุปกรณ์">
+                    <input type="radio" name="contract_tabs" role="tab" class="tab text-xs sm:text-sm whitespace-nowrap" aria-label="รายการอุปกรณ์">
                     <!-- Tab Content: Device List -->
-                    <div id="device-list" role="tabpanel" class="tab-content p-6">
+                    <div id="device-list" role="tabpanel" class="tab-content p-3 sm:p-4 lg:p-6">
                         <div class="card bg-white shadow-lg">
-                            <div class="card-body">
-                                <div class="flex items-center justify-between mb-6">
+                            <div class="card-body p-4 sm:p-6">
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
                                     <div class="flex items-center">
-                                        <div
-                                            class="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-3">
-                                            <i class="fas fa-laptop text-white text-lg"></i>
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+                                            <i class="fas fa-laptop text-white text-sm sm:text-lg"></i>
                                         </div>
-                                        <h2 class="card-title text-xl font-bold text-gray-800">รายการอุปกรณ์ที่เช่า</h2>
+                                        <h2 class="text-base sm:text-lg lg:text-xl font-bold text-gray-800">รายการอุปกรณ์ที่เช่า</h2>
                                     </div>
-                                    <div class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                                        <i class="fas fa-boxes mr-2"></i>
-                                        <strong>รวม: <span id="totalCount"><?= count($rent_details) ?></span>
-                                            รายการ</strong>
+                                    <div class="text-xs sm:text-sm text-gray-600 bg-gray-100 px-2 sm:px-3 py-1 rounded-full">
+                                        <i class="fas fa-boxes mr-1 sm:mr-2"></i>
+                                        <strong>รวม: <span id="totalCount"><?= count($rent_details) ?></span> รายการ</strong>
                                     </div>
                                 </div>
 
                                 <?php if (!empty($rent_details)): ?>
                                     <!-- Filter Section -->
-                                    <div class="mb-6 p-4 bg-gray-50 rounded-lg border">
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-lg border">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                                                     <i class="fas fa-search mr-1"></i>ค้นหาทั่วไป
                                                 </label>
-                                                <input type="text" id="globalSearch" class="input input-bordered w-full"
+                                                <input type="text" id="globalSearch" class="input input-bordered input-sm sm:input-md w-full text-sm"
                                                     placeholder="ค้นหา Serial Number, รุ่น...">
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                                                     <i class="fas fa-filter mr-1"></i>กรองตามรุ่น
                                                 </label>
-                                                <select id="modelFilter" class="select select-bordered w-full">
+                                                <select id="modelFilter" class="select select-bordered select-sm sm:select-md w-full text-sm">
                                                     <option value="">ทุกรุ่น</option>
                                                     <?php
                                                     $models = array_unique(array_column($rent_details, 'model_name'));
@@ -346,10 +331,10 @@ $totalRemaining = $totalAmount - $totalPaid;
                                                 </select>
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                                                     <i class="fas fa-tags mr-1"></i>กรองตามประเภท
                                                 </label>
-                                                <select id="typeFilter" class="select select-bordered w-full">
+                                                <select id="typeFilter" class="select select-bordered select-sm sm:select-md w-full text-sm">
                                                     <option value="">ทุกประเภท</option>
                                                     <?php
                                                     $types = array_unique(array_column($rent_details, 'type_name'));
@@ -361,12 +346,12 @@ $totalRemaining = $totalAmount - $totalPaid;
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                                                     <i class="fas fa-heartbeat mr-1"></i>กรองตามสถานะ
                                                 </label>
-                                                <select id="statusFilter" class="select select-bordered w-full">
+                                                <select id="statusFilter" class="select select-bordered select-sm sm:select-md w-full text-sm">
                                                     <option value="">ทุกสถานะ</option>
                                                     <option value="ปกติ">ปกติ</option>
                                                     <option value="ชำรุด">ชำรุด</option>
@@ -460,21 +445,21 @@ $totalRemaining = $totalAmount - $totalPaid;
                                     </div>
 
                                     <!-- Pagination -->
-                                    <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
-                                        <div class="text-sm text-gray-600">
+                                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200 gap-3">
+                                        <div class="text-xs sm:text-sm text-gray-600">
                                             แสดง <span id="showingStart">1</span> ถึง <span
                                                 id="showingEnd"><?= min(10, count($rent_details)) ?></span>
                                             จากทั้งหมด <span id="totalItems"><?= count($rent_details) ?></span> รายการ
                                         </div>
-                                        <div class="flex space-x-2">
-                                            <button id="prevPage" class="btn btn-outline btn-sm" disabled>
-                                                <i class="fas fa-chevron-left mr-1"></i>ก่อนหน้า
+                                        <div class="flex space-x-1 sm:space-x-2 w-full sm:w-auto justify-end">
+                                            <button id="prevPage" class="btn btn-outline btn-xs sm:btn-sm" disabled>
+                                                <i class="fas fa-chevron-left mr-1"></i><span class="hidden sm:inline">ก่อนหน้า</span>
                                             </button>
-                                            <div id="pageNumbers" class="flex space-x-1">
+                                            <div id="pageNumbers" class="flex space-x-1 overflow-x-auto max-w-[150px] sm:max-w-none">
                                                 <!-- Page numbers will be inserted here -->
                                             </div>
-                                            <button id="nextPage" class="btn btn-outline btn-sm">
-                                                ถัดไป<i class="fas fa-chevron-right ml-1"></i>
+                                            <button id="nextPage" class="btn btn-outline btn-xs sm:btn-sm">
+                                                <span class="hidden sm:inline">ถัดไป</span><i class="fas fa-chevron-right ml-1"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -494,22 +479,21 @@ $totalRemaining = $totalAmount - $totalPaid;
                     </div>
 
 
-                    <input type="radio" name="contract_tabs" role="tab" class="tab" aria-label="ข้อมูลการชำระเงิน">
-                    <div id="payment-info" role="tabpanel" class="tab-content p-6">
+                    <input type="radio" name="contract_tabs" role="tab" class="tab text-xs sm:text-sm whitespace-nowrap" aria-label="ข้อมูลการชำระเงิน">
+                    <div id="payment-info" role="tabpanel" class="tab-content p-3 sm:p-4 lg:p-6">
                         <div class="card bg-white shadow-lg">
-                            <div class="card-body">
-                                <div class="flex items-center justify-between mb-6">
+                            <div class="card-body p-4 sm:p-6">
+                                <div class="flex items-center justify-between mb-4 sm:mb-6">
                                     <div class="flex items-center">
-                                        <div
-                                            class="w-10 h-10 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg flex items-center justify-center mr-3">
-                                            <i class="fas fa-receipt text-white text-lg"></i>
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+                                            <i class="fas fa-receipt text-white text-sm sm:text-lg"></i>
                                         </div>
-                                        <h2 class="card-title text-xl font-bold text-gray-800">ข้อมูลการชำระเงิน</h2>
+                                        <h2 class="text-base sm:text-lg lg:text-xl font-bold text-gray-800">ข้อมูลการชำระเงิน</h2>
                                     </div>
                                 </div>
 
                                 <!-- สรุปยอดเงิน -->
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                                     <div class="stats shadow">
                                         <div class="stat">
                                             <div class="stat-figure text-primary">
@@ -655,6 +639,7 @@ $totalRemaining = $totalAmount - $totalPaid;
             </div>
         </div>
     </div>
+    </div>
 
     <script>
         // Tab functionality
@@ -678,7 +663,7 @@ $totalRemaining = $totalAmount - $totalPaid;
             event.target.classList.add('tab-active');
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const table = document.getElementById('rentDetailsTable');
             const tbody = document.getElementById('tableBody');
 

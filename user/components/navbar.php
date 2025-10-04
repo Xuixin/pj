@@ -59,7 +59,7 @@ $current_file_name = basename($_SERVER['PHP_SELF']);
         <div class="navbar-end">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="dropdown dropdown-end">
-                   
+
                     <div class="avatar" tabindex="0" role="button">
                         <div class="w-10 rounded-full">
                             <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
@@ -68,7 +68,7 @@ $current_file_name = basename($_SERVER['PHP_SELF']);
                     <ul tabindex="0" class="menu menu-sm dropdown-content bg-white mt-3 z-[1] p-2 shadow rounded-box w-52">
                         <li><span class="text-gray-600">สวัสดี, <?= htmlspecialchars($_SESSION['user_name']) ?></span></li>
                         <li><a href="my_contracts.php"><i class="fas fa-file-contract mr-2"></i>สัญญาของฉัน</a></li>
-             
+
                         <li><a href="logout.php"><i class="fas fa-sign-out-alt mr-2"></i>ออกจากระบบ</a></li>
                     </ul>
                 </div>
@@ -82,7 +82,7 @@ $current_file_name = basename($_SERVER['PHP_SELF']);
 </nav>
 
 <dialog id="login_modal" class="modal" data-aos="zoom-out-down">
-    <div class="modal-box max-w-[24rem] absolute top-20 right-4">
+    <div class="modal-box max-w-[24rem] sm:absolute sm:top-20 sm:right-4">
         <h3 class="text-lg font-bold mb-4">เข้าสู่ระบบ</h3>
 
         <?php if (isset($_SESSION['login_error'])): ?>
@@ -99,10 +99,10 @@ $current_file_name = basename($_SERVER['PHP_SELF']);
                 <label class="label"><span class="label-text">เบอร์โทรศัพท์</span></label>
                 <input type="text" name="phone" required class="input input-bordered w-full">
             </div>
-            <div class="modal-action justify-between">
-                <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
-                <form method="dialog" >
-                    <button class="btn" type="button">ปิด</button>
+            <div class="modal-action flex-col sm:flex-row justify-between gap-2">
+                <button type="submit" class="btn btn-primary w-full sm:w-auto">เข้าสู่ระบบ</button>
+                <form method="dialog" class="w-full sm:w-auto">
+                    <button class="btn w-full sm:w-auto" type="button">ปิด</button>
                 </form>
             </div>
         </form>

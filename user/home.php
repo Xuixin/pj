@@ -34,6 +34,7 @@ if ($types_result) {
 
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,31 +43,32 @@ if ($types_result) {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- AOS CSS -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 </head>
+
 <body class="bg-gray-50">
     <!-- Navigation -->
-<?php  include('./components/navbar.php'); ?>
+    <?php include('./components/navbar.php'); ?>
 
     <!-- Hero Section -->
     <section id="home" class="hero min-h-screen bg-gradient-to-br from-blue-600 to-purple-700">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="flex-1">
-                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                     class="max-w-sm rounded-lg shadow-2xl mx-auto" alt="Technology Equipment">
+        <div class="hero-content flex-col lg:flex-row-reverse px-4 py-8 lg:py-0">
+            <div class="flex-1 w-full max-w-md lg:max-w-lg">
+                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    class="w-full max-w-xs sm:max-w-sm lg:max-w-md rounded-lg shadow-2xl mx-auto" alt="Technology Equipment">
             </div>
-            <div class="flex-1 text-white">
-                <h1 class="text-5xl font-bold mb-6">เช่าอุปกรณ์ไอที<br>คุณภาพสูง</h1>
-                <p class="text-xl mb-8 opacity-90">
-                    บริการเช่าอุปกรณ์เทคโนโลยี คอมพิวเตอร์ โน้ตบุ๊ค และอุปกรณ์ไอทีชั้นนำ 
+            <div class="flex-1 text-white text-center lg:text-left mt-8 lg:mt-0">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">เช่าอุปกรณ์ไอที<br>คุณภาพสูง</h1>
+                <p class="text-base sm:text-lg lg:text-xl mb-6 lg:mb-8 opacity-90 px-4 lg:px-0">
+                    บริการเช่าอุปกรณ์เทคโนโลยี คอมพิวเตอร์ โน้ตบุ๊ค และอุปกรณ์ไอทีชั้นนำ
                     พร้อมบริการดูแลและซ่อมบำรุง
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="devices.php" class="btn btn-primary btn-lg">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start px-4 lg:px-0">
+                    <a href="devices.php" class="btn btn-primary btn-md lg:btn-lg w-full sm:w-auto">
                         <i class="fas fa-laptop mr-2"></i>ดูอุปกรณ์ทั้งหมด
                     </a>
-                    <a href="contact.php" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary">
+                    <a href="contact.php" class="btn btn-outline btn-md lg:btn-lg border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto">
                         <i class="fas fa-phone mr-2"></i>ติดต่อเรา
                     </a>
                 </div>
@@ -75,35 +77,35 @@ if ($types_result) {
     </section>
 
     <!-- Promotion Banner -->
-    <section class="py-16 bg-gradient-to-r from-green-400 to-blue-500">
+    <section class="py-12 sm:py-16 bg-gradient-to-r from-green-400 to-blue-500">
         <div class="container mx-auto px-4">
             <div class="text-center text-white">
-                <h2 class="text-4xl font-bold mb-4">
-                    <i class="fas fa-gift mr-3"></i>โปรโมชั่นพิเศษ!
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
+                    <i class="fas fa-gift mr-2 sm:mr-3"></i>โปรโมชั่นพิเศษ!
                 </h2>
-                <p class="text-xl mb-6">สำหรับลูกค้าใหม่ที่เช่าครั้งแรก</p>
-                <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto">
-                    <div class="grid md:grid-cols-3 gap-6">
+                <p class="text-base sm:text-lg lg:text-xl mb-4 sm:mb-6">สำหรับลูกค้าใหม่ที่เช่าครั้งแรก</p>
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                         <div class="text-center">
-                            <div class="w-16 h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-percent text-2xl"></i>
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <i class="fas fa-percent text-lg sm:text-2xl"></i>
                             </div>
-                            <h3 class="text-2xl font-bold mb-2">ลด 5%</h3>
-                            <p>สำหรับการเช่าครั้งแรก</p>
+                            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">ลด 5%</h3>
+                            <p class="text-sm sm:text-base">สำหรับการเช่าครั้งแรก</p>
                         </div>
                         <div class="text-center">
-                            <div class="w-16 h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-shipping-fast text-2xl"></i>
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <i class="fas fa-shipping-fast text-lg sm:text-2xl"></i>
                             </div>
-                            <h3 class="text-2xl font-bold mb-2">ส่งฟรี</h3>
-                            <p>ส่งและรับอุปกรณ์ถึงที่</p>
+                            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">ส่งฟรี</h3>
+                            <p class="text-sm sm:text-base">ส่งและรับอุปกรณ์ถึงที่</p>
                         </div>
                         <div class="text-center">
-                            <div class="w-16 h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-tools text-2xl"></i>
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <i class="fas fa-tools text-lg sm:text-2xl"></i>
                             </div>
-                            <h3 class="text-2xl font-bold mb-2">ดูแลฟรี</h3>
-                            <p>บริการดูแลและซ่อมบำรุง</p>
+                            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">ดูแลฟรี</h3>
+                            <p class="text-sm sm:text-base">บริการดูแลและซ่อมบำรุง</p>
                         </div>
                     </div>
                 </div>
@@ -112,14 +114,14 @@ if ($types_result) {
     </section>
 
     <!-- Featured Devices -->
-    <section class="py-16 bg-white" data-aos="fade-up">
+    <section class="py-12 sm:py-16 bg-white" data-aos="fade-up">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">อุปกรณ์แนะนำ</h2>
-                <p class="text-xl text-gray-600">อุปกรณ์คุณภาพสูงที่พร้อมให้บริการ</p>
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">อุปกรณ์แนะนำ</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600">อุปกรณ์คุณภาพสูงที่พร้อมให้บริการ</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 <?php foreach ($featured_devices as $device): ?>
                     <div class="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <figure class="px-6 pt-6">
@@ -147,9 +149,9 @@ if ($types_result) {
                     </div>
                 <?php endforeach; ?>
             </div>
-            
-            <div class="text-center mt-12">
-                <a href="devices.php" class="btn btn-primary btn-lg">
+
+            <div class="text-center mt-8 sm:mt-12">
+                <a href="devices.php" class="btn btn-primary btn-md lg:btn-lg">
                     <i class="fas fa-arrow-right mr-2"></i>ดูอุปกรณ์ทั้งหมด
                 </a>
             </div>
@@ -157,17 +159,17 @@ if ($types_result) {
     </section>
 
     <!-- Device Categories -->
-    <section class="py-16 bg-gray-100" data-aos="fade-up">
+    <section class="py-12 sm:py-16 bg-gray-100" data-aos="fade-up">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">หมวดหมู่อุปกรณ์</h2>
-                <p class="text-xl text-gray-600">เลือกประเภทอุปกรณ์ที่คุณต้องการ</p>
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">หมวดหมู่อุปกรณ์</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600">เลือกประเภทอุปกรณ์ที่คุณต้องการ</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <?php foreach ($types as $type): ?>
-                    <a href="devices.php?type=<?= $type['type_id'] ?>" 
-                       class="card bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <a href="devices.php?type=<?= $type['type_id'] ?>"
+                        class="card bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <div class="card-body text-center">
                             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-laptop text-white text-2xl"></i>
@@ -182,14 +184,14 @@ if ($types_result) {
     </section>
 
     <!-- Why Choose Us -->
-    <section class="py-16 bg-white">
+    <section class="py-12 sm:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">ทำไมต้องเลือกเรา</h2>
-                <p class="text-xl text-gray-600">เหตุผลที่ลูกค้าไว้วางใจเรา</p>
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">ทำไมต้องเลือกเรา</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600">เหตุผลที่ลูกค้าไว้วางใจเรา</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 <div class="text-center">
                     <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-award text-white text-2xl"></i>
@@ -197,7 +199,7 @@ if ($types_result) {
                     <h3 class="text-xl font-bold mb-3">คุณภาพสูง</h3>
                     <p class="text-gray-600">อุปกรณ์ทุกชิ้นผ่านการตรวจสอบคุณภาพ</p>
                 </div>
-                
+
                 <div class="text-center">
                     <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-clock text-white text-2xl"></i>
@@ -205,7 +207,7 @@ if ($types_result) {
                     <h3 class="text-xl font-bold mb-3">บริการรวดเร็ว</h3>
                     <p class="text-gray-600">ส่งมอบอุปกรณ์ภายใน 24 ชั่วโมง</p>
                 </div>
-                
+
                 <div class="text-center">
                     <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-headset text-white text-2xl"></i>
@@ -213,7 +215,7 @@ if ($types_result) {
                     <h3 class="text-xl font-bold mb-3">ซัพพอร์ต 24/7</h3>
                     <p class="text-gray-600">ทีมงานพร้อมช่วยเหลือตลอด 24 ชั่วโมง</p>
                 </div>
-                
+
                 <div class="text-center">
                     <div class="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-shield-alt text-white text-2xl"></i>
@@ -226,22 +228,22 @@ if ($types_result) {
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-gradient-to-r from-blue-600 to-purple-700">
+    <section class="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-purple-700">
         <div class="container mx-auto px-4 text-center text-white">
-            <h2 class="text-4xl font-bold mb-6">พร้อมเริ่มต้นเช่าอุปกรณ์แล้วใช่ไหม?</h2>
-            <p class="text-xl mb-8 opacity-90">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">พร้อมเริ่มต้นเช่าอุปกรณ์แล้วใช่ไหม?</h2>
+            <p class="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 px-4">
                 เริ่มต้นการเช่าอุปกรณ์ไอทีคุณภาพสูงได้ตั้งแต่วันนี้
             </p>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="devices.php" class="btn btn-primary btn-lg">
+                <a href="devices.php" class="btn btn-primary btn-md lg:btn-lg">
                     <i class="fas fa-laptop mr-2"></i>เลือกอุปกรณ์เลย
                 </a>
             <?php else: ?>
-                <div class="flex justify-center gap-4">
-                    <a href="register.php" class="btn btn-primary btn-lg">
+                <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
+                    <a href="register.php" class="btn btn-primary btn-md lg:btn-lg w-full sm:w-auto">
                         <i class="fas fa-user-plus mr-2"></i>สมัครสมาชิก
                     </a>
-                    <a href="devices.php" class="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary">
+                    <a href="devices.php" class="btn btn-outline btn-md lg:btn-lg border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto">
                         <i class="fas fa-eye mr-2"></i>ดูอุปกรณ์ก่อน
                     </a>
                 </div>
@@ -252,11 +254,12 @@ if ($types_result) {
     <!-- Footer -->
     <?php include('components/footer.php'); ?>
 
-   <!-- AOS JS -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 </body>
+
 </html>
