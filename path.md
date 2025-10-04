@@ -1,0 +1,59 @@
+```
+└── 📁pj
+    └── 📁admin
+        └── 📁admin_component
+            └── sidebar.php
+        └── admin_db.php
+        └── admin.php
+        └── brand_db.php
+        └── contract_upload.php
+        └── contract_viewer.php
+        └── dashboard.php
+        └── device_db.php
+        └── device_detail_db.php
+        └── device_detail.php
+        └── device.php
+        └── generate_contract.php
+        └── get_models.php
+        └── login.php
+        └── logout.php
+        └── pm_save.php
+        └── rent_db.php
+        └── rent_insert.php
+        └── rent.php
+        └── save_contract_pdf.php
+        └── test.php
+        └── update_detail_status.php
+        └── update_status.php
+        └── user_db.php
+        └── user.php
+    └── 📁image
+
+    └── 📁lib
+        └── format_date.php
+        └── generateSerialKey.php
+        └── toast.php
+        └── upload.php
+    └── 📁scripts
+        └── main.js
+    └── 📁uploads
+        └── 📁contracts
+
+        └── .DS_Store
+    └── 📁user
+        └── about.php
+        └── 📁components
+            └── footer.php
+            └── navbar.php
+        └── contact.php
+        └── contract_detail.php
+        └── devices.php
+        └── home.php
+        └── login_db.php
+        └── logout.php
+        └── my_contracts.php
+    └── admin_layout.php
+    └── conn.php
+    └── .DS_Store
+    └── user_layout.php
+```
