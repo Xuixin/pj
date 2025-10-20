@@ -243,9 +243,9 @@ if (!function_exists('formatDateTime')) {
 }
 ?>
 
-<div class="space-y-6 text-black">
+<div class="space-y-6 text-white">
     <!-- Header -->
-    <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl shadow-lg p-6 text-black">
+    <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl shadow-lg p-6 text-white">
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h2 class="text-2xl font-bold">💰 รายงานการเงิน</h2>
@@ -290,6 +290,22 @@ if (!function_exists('formatDateTime')) {
                 </select>
             </div>
         </form>
+        <?php
+        $exportParams = [
+            'view_type' => $viewType,
+            'year' => $currentYear
+        ];
+        if ($viewType === 'month') {
+            $exportParams['month'] = $currentMonth;
+        }
+        $exportQuery = http_build_query($exportParams);
+        ?>
+
+        <div class="mt-4 flex items-center gap-3 no-print">
+            <a href="admin_component/financial_report_print.php?<?= $exportQuery ?>" target="_blank"><button type="button" class="btn btn-sm btn-outline">
+                    <i class="fas fa-print mr-2"></i>Export PDF
+                </button></a>
+        </div>
     </div>
 
     <?php if ($viewType === 'month'): ?>
@@ -297,7 +313,7 @@ if (!function_exists('formatDateTime')) {
 
         <!-- สรุปการเงิน -->
         <div class="grid grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-hand-holding-usd text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold">฿<?= number_format($revenue) ?></h3>
@@ -305,7 +321,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-file-invoice-dollar text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold">฿<?= number_format($newContractValue) ?></h3>
@@ -313,7 +329,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-hourglass-half text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold">฿<?= number_format($pendingPayment) ?></h3>
@@ -321,7 +337,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-red-400 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-exclamation-triangle text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold">฿<?= number_format($overdueAmount) ?></h3>
@@ -333,7 +349,7 @@ if (!function_exists('formatDateTime')) {
         <div class="grid grid-cols-3 gap-6">
             <!-- รายได้แยกตามประเภท -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 flex items-center gap-2 mb-4">
+                <h3 class="text-xl font-bold text-gray-300 flex items-center gap-2 mb-4">
                     <i class="fas fa-chart-pie text-blue-500"></i>
                     รายได้แยกตามประเภท
                 </h3>
@@ -343,14 +359,14 @@ if (!function_exists('formatDateTime')) {
                         <p class="text-center text-gray-500 py-4">ไม่มีข้อมูล</p>
                     <?php else: ?>
                         <?php foreach ($revenueByType as $type): ?>
-                            <div class="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
+                            <div class="p-4 bg-blue-400 rounded-lg">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="font-medium text-gray-700">
+                                    <span class="font-medium text-white">
                                         <?= $type['type'] === 'เต็มจำนวน' ? '💵 ชำระเต็มจำนวน' : '📅 ชำระแบบงวด' ?>
                                     </span>
                                     <span class="badge badge-info"><?= $type['count'] ?> รายการ</span>
                                 </div>
-                                <p class="text-2xl font-bold text-blue-600">฿<?= number_format($type['total'], 2) ?></p>
+                                <p class="text-2xl font-bold text-white">฿<?= number_format($type['total'], 2) ?></p>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -409,7 +425,7 @@ if (!function_exists('formatDateTime')) {
 
         <!-- ประวัติการชำระเงิน -->
         <div class="bg-white rounded-xl shadow-lg p-6">
-            <h3 class="text-xl font-bold text-gray-800 flex items-center gap-2 mb-4">
+            <h3 class="text-xl font-bold text-gray-300 flex items-center gap-2 mb-4">
                 <i class="fas fa-history text-purple-500"></i>
                 ประวัติการชำระเงิน
             </h3>
@@ -478,7 +494,7 @@ if (!function_exists('formatDateTime')) {
 
         <!-- สรุปการเงินทั้งปี -->
         <div class="grid grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-hand-holding-usd text-4xl mb-3"></i>
                     <p class="text-sm opacity-90 mb-2">รายได้ทั้งปี</p>
@@ -486,7 +502,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-file-invoice-dollar text-4xl mb-3"></i>
                     <p class="text-sm opacity-90 mb-2">มูลค่าสัญญา</p>
@@ -494,7 +510,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-hourglass-half text-4xl mb-3"></i>
                     <p class="text-sm opacity-90 mb-2">ยอดค้างรับ</p>
@@ -502,7 +518,7 @@ if (!function_exists('formatDateTime')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-exclamation-triangle text-4xl mb-3"></i>
                     <p class="text-sm opacity-90 mb-2">ค้างชำระ</p>

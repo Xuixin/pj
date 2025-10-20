@@ -1,5 +1,8 @@
 <?php
 require_once('./../conn.php');
+
+
+
 $currentMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
 $currentYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
 $viewType = isset($_GET['view_type']) ? $_GET['view_type'] : 'month';
@@ -275,9 +278,35 @@ if (!function_exists('formatDateThai')) {
 }
 ?>
 
-<div class="space-y-6 text-black">
+<div id="rental-report-root" class="space-y-6 text-white">
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            thead {
+                position: static !important;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
+            }
+
+            table {
+                border-collapse: collapse !important;
+            }
+
+            th,
+            td {
+                border: 1px solid #e5e7eb !important;
+                padding: 6px !important;
+            }
+        }
+    </style>
     <!-- Header -->
-    <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg p-6 text-black">
+    <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg p-6 text-white">
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h2 class="text-2xl font-bold">📋 รายงานการเช่า</h2>
@@ -291,7 +320,7 @@ if (!function_exists('formatDateThai')) {
             </div>
         </div>
 
-        <form method="GET" class="flex items-end gap-4">
+        <form method="GET" class="flex items-end gap-4 no-print">
             <input type="hidden" name="tab" value="rental">
 
             <div class="flex-1">
@@ -322,6 +351,24 @@ if (!function_exists('formatDateThai')) {
                 </select>
             </div>
         </form>
+
+        <?php
+        // สร้างลิงก์สำหรับ Export PDF ให้คงพารามิเตอร์ปัจจุบัน
+        $exportParams = [
+            'view_type' => $viewType,
+            'year' => $currentYear
+        ];
+        if ($viewType === 'month') {
+            $exportParams['month'] = $currentMonth;
+        }
+        $exportQuery = http_build_query($exportParams);
+        ?>
+
+        <div class="mt-4 flex items-center gap-3 no-print">
+            <a href="admin_component/rental_report_print.php?<?= $exportQuery ?>" target="_blank"><button type="button" class="btn btn-sm btn-outline">
+                    <i class="fas fa-print mr-2"></i>Export PDF
+                </button></a>
+        </div>
     </div>
 
     <?php if ($viewType === 'month'): ?>
@@ -329,7 +376,7 @@ if (!function_exists('formatDateThai')) {
 
         <!-- สถิติภาพรวม -->
         <div class="grid grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-file-contract text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold"><?= number_format($newContracts) ?></h3>
@@ -337,7 +384,7 @@ if (!function_exists('formatDateThai')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-clipboard-check text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold"><?= number_format($activeContracts) ?></h3>
@@ -345,7 +392,7 @@ if (!function_exists('formatDateThai')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-users text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold"><?= number_format($totalCustomers) ?></h3>
@@ -353,7 +400,7 @@ if (!function_exists('formatDateThai')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-laptop text-3xl mb-2"></i>
                     <h3 class="text-2xl font-bold"><?= number_format($devicesRented) ?></h3>
@@ -392,9 +439,9 @@ if (!function_exists('formatDateThai')) {
                             <?php else: ?>
                                 <?php foreach ($customerList as $index => $customer): ?>
                                     <tr>
-                                        <td><?= $index + 1 ?></td>
-                                        <td class="font-medium"><?= htmlspecialchars($customer['user_name']) ?></td>
-                                        <td><?= htmlspecialchars($customer['location']) ?></td>
+                                        <td class="!text-black"><?= $index + 1 ?></td>
+                                        <td class="font-medium !text-black"><?= htmlspecialchars($customer['user_name']) ?></td>
+                                        <td class="!text-black"><?= htmlspecialchars($customer['location']) ?></td>
                                         <td><span class="badge badge-primary badge-sm"><?= $customer['contract_count'] ?></span></td>
                                         <td class="font-semibold text-green-600">฿<?= number_format($customer['total_spent']) ?></td>
                                     </tr>
@@ -425,10 +472,7 @@ if (!function_exists('formatDateThai')) {
                         <p class="text-2xl font-bold text-red-600"><?= number_format($brokenDevices['broken']) ?></p>
                         <p class="text-sm text-gray-600">อุปกรณ์เสีย</p>
                     </div>
-                    <div class="p-3 bg-yellow-50 rounded-lg text-center">
-                        <p class="text-2xl font-bold text-yellow-600"><?= number_format($brokenDevices['claim']) ?></p>
-                        <p class="text-sm text-gray-600">ส่งเคลม</p>
-                    </div>
+
                 </div>
 
                 <div class="mt-4">
@@ -440,11 +484,11 @@ if (!function_exists('formatDateThai')) {
                             <?php foreach ($topModels as $index => $model): ?>
                                 <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
                                     <div class="flex items-center gap-2">
-                                        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-black text-xs font-bold">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center  text-xs font-bold">
                                             <?= $index + 1 ?>
                                         </div>
                                         <div>
-                                            <p class="text-sm font-medium"><?= htmlspecialchars($model['model_name']) ?></p>
+                                            <p class="text-sm font-medium !text-black"><?= htmlspecialchars($model['model_name']) ?></p>
                                             <p class="text-xs text-gray-500"><?= htmlspecialchars($model['brand_name']) ?></p>
                                         </div>
                                     </div>
@@ -465,7 +509,7 @@ if (!function_exists('formatDateThai')) {
             </h3>
 
             <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="p-4 bg-blue-50 rounded-lg">
+                <div class="p-4 bg-blue-50/10 rounded-lg">
                     <p class="text-sm text-gray-600 mb-1">สัญญาใหม่</p>
                     <p class="text-2xl font-bold text-blue-600"><?= number_format($newContracts) ?></p>
                 </div>
@@ -505,11 +549,11 @@ if (!function_exists('formatDateThai')) {
                                         #<?= $contract['rent_id'] ?>
                                         <i class="fas fa-arrow-right ml-1 text-xs"></i>
                                     </td>
-                                    <td><?= htmlspecialchars($contract['user_name']) ?></td>
-                                    <td><?= formatDateThai($contract['start_date']) ?></td>
-                                    <td><?= formatDateThai($contract['end_date']) ?></td>
+                                    <td class="text-gray-600"><?= htmlspecialchars($contract['user_name']) ?></td>
+                                    <td class="text-gray-600"><?= formatDateThai($contract['start_date']) ?></td>
+                                    <td class="text-gray-600"><?= formatDateThai($contract['end_date']) ?></td>
                                     <td><span class="badge badge-info badge-sm"><?= $contract['device_count'] ?></span></td>
-                                    <td class="font-semibold">฿<?= number_format($contract['total_amount']) ?></td>
+                                    <td class="font-semibold text-gray-600">฿<?= number_format($contract['total_amount']) ?></td>
                                     <td>
                                         <?php if ($contract['payment_type'] === 'all'): ?>
                                             <span class="badge badge-success badge-sm">เต็มจำนวน</span>
@@ -538,7 +582,7 @@ if (!function_exists('formatDateThai')) {
 
         <!-- สถิติภาพรวมทั้งปี -->
         <div class="grid grid-cols-3 gap-4">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-file-contract text-4xl mb-3"></i>
                     <h3 class="text-3xl font-bold"><?= number_format($newContracts) ?></h3>
@@ -546,7 +590,7 @@ if (!function_exists('formatDateThai')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-users text-4xl mb-3"></i>
                     <h3 class="text-3xl font-bold"><?= number_format($totalCustomers) ?></h3>
@@ -554,7 +598,7 @@ if (!function_exists('formatDateThai')) {
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-black">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
                 <div class="text-center">
                     <i class="fas fa-laptop text-4xl mb-3"></i>
                     <h3 class="text-3xl font-bold"><?= number_format($devicesRented) ?></h3>
@@ -590,8 +634,8 @@ if (!function_exists('formatDateThai')) {
                                 <?php foreach ($customerList as $index => $customer): ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
-                                        <td class="font-medium"><?= htmlspecialchars($customer['user_name']) ?></td>
-                                        <td><span class="badge badge-primary badge-sm"><?= $customer['contract_count'] ?></span></td>
+                                        <td class="font-medium text-gray-600"><?= htmlspecialchars($customer['user_name']) ?></td>
+                                        <td class="text-gray-600"><span class="badge badge-primary badge-sm"><?= $customer['contract_count'] ?></span></td>
                                         <td class="font-semibold text-green-600">฿<?= number_format($customer['total_spent']) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -636,7 +680,7 @@ if (!function_exists('formatDateThai')) {
                             <?php foreach ($topModels as $index => $model): ?>
                                 <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
                                     <div class="flex items-center gap-2">
-                                        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-black text-xs font-bold">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
                                             <?= $index + 1 ?>
                                         </div>
                                         <div>
@@ -752,3 +796,40 @@ if (!function_exists('formatDateThai')) {
         </div>
     <?php endif; ?>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function generateReportPdf() {
+        const element = document.getElementById('rental-report-root');
+        if (!element) return;
+        const opt = {
+            margin: [12, 10, 12, 10],
+            filename: `rental_report_<?= $viewType === 'month' ? $currentYear . $currentMonth : $currentYear ?>.pdf`,
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2,
+                useCORS: true
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            },
+            pagebreak: {
+                mode: ['css', 'legacy']
+            }
+        };
+        // Clone to avoid modifying live DOM
+        const clone = element.cloneNode(true);
+        // Hide controls
+        clone.querySelectorAll('.no-print').forEach(n => n.remove());
+        // Force table borders for PDF clarity
+        const style = document.createElement('style');
+        style.textContent = `table{border-collapse:collapse}th,td{border:1px solid #e5e7eb;padding:6px}`;
+        clone.prepend(style);
+        html2pdf().set(opt).from(clone).save();
+    }
+</script>

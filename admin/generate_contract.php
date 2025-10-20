@@ -238,7 +238,7 @@ $payment_schedule = $_SESSION['payment_schedule'] ?? [];
         <div class="info-grid">
             <div class="info-box">
                 <strong>ผู้ให้เช่า:</strong> [ชื่อองค์กร]<br>
-                <strong>ผู้อนุมัติ:</strong> 
+                <strong>ผู้อนุมัติ:</strong>
             </div>
             <div class="info-box">
                 <strong>ผู้เช่า:</strong> <?= htmlspecialchars($username) ?><br>
@@ -356,7 +356,9 @@ $payment_schedule = $_SESSION['payment_schedule'] ?? [];
 
         <div style="margin-top: 20px; padding: 10px; background: #e9ecef; border-radius: 5px; font-size: 12px; color: #6c757d;">
             <strong>หมายเหตุ:</strong> สัญญาฉบับนี้จัดทำ 2 ฉบับ คู่สัญญาถือไว้ฝ่ายละ 1 ฉบับ |
-            รายละเอียดครุภัณฑ์และหมายเลขเครื่องดูเอกสารแนบ
+            รายละเอียดครุภัณฑ์และหมายเลขเครื่องดูเอกสารแนบ <br>
+            <strong>หมายเหตุ:</strong> ในกรณีที่อุปกรณ์เสียหายหรือสูญหาย มากกว่าเครื่องสำรองที่ให้ไว้
+            ผู้เช่าสามารถติดต่อทางบริษัทเพื่อขอเครื่องสำรองเพิ่มได้
         </div>
     </div>
 

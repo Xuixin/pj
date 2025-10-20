@@ -66,11 +66,9 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'overview';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>Dashboard - ระบบจัดการอุปกรณ์</title>
     <style>
         * {
@@ -163,17 +161,17 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'overview';
         <!-- Main Content -->
         <div class="col-span-4 z-20 row-span-1 col-start-2 row-start-1 py-3 pr-3 grid grid-cols-5 grid-rows-8 gap-6">
             <!-- Header -->
-            <div class="col-span-5 row-span-1 bg-white rounded-2xl shadow-lg flex items-center justify-between px-8">
+             <div class="col-span-5 row-span-1 bg-white rounded-2xl shadow-lg flex items-center justify-between px-8 z-30">
                 <div class="flex items-center">
                     <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <i class="fas fa-user text-white text-lg"></i>
                     </div>
                     <div class="ml-4">
                         <h1 class="text-lg font-semibold text-gray-800">ยินดีต้อนรับ, <?php echo $_SESSION['admin_name'] ?></h1>
-                        <p class="text-sm text-gray-500">ภาพรวมข้อมูล</p>
+                        <p class="text-sm text-gray-500">จัดการข้อมูลอุปกรณ์</p>
                     </div>
                 </div>
-
+                
             </div>
 
             <!-- name of each tab group should be unique -->

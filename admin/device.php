@@ -256,15 +256,17 @@ $type = mysqli_query($conn, "SELECT * FROM type")
 
             <div class="col-span-5 row-span-1 bg-white rounded-2xl shadow-lg flex items-center justify-between px-8">
                 <div class="flex items-center">
-                    <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <i class="fas fa-user text-white text-lg"></i>
                     </div>
                     <div class="ml-4">
-                        <h1 class="text-lg font-semibold text-gray-800">ยินดีต้อนรับ, <?php echo $_SESSION['admin_name'] ?></h1>
+                        <h1 class="text-lg font-semibold text-gray-800">ยินดีต้อนรับ,
+                            <?php echo $_SESSION['admin_name'] ?></h1>
                         <p class="text-sm text-gray-500">จัดการข้อมูลอุปกรณ์</p>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="col-span-5 row-span-7 bg-white rounded-2xl shadow-lg  grid grid-rows-8">
@@ -274,16 +276,20 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                     </h3>
 
                     <div class="flex space-x-5 justify-between items-center">
+
+
                         <form action="brand_db.php" class="flex w-full max-w-sm" method="post">
                             <input type="text" name="brand_name" placeholder="เพิ่มแบรนด์ใหม่"
-                                class="input input-bordered w-full rounded-l-sm focus:outline-none focus:border-blue-500" required>
+                                class="input input-bordered w-full rounded-l-sm focus:outline-none focus:border-blue-500"
+                                required>
                             <button type="submit" class="btn bg-blue-500 text-white rounded-r-sm hover:bg-blue-600">
                                 เพิ่ม
                             </button>
                         </form>
 
                         <form method="GET" class="">
-                            <select name="brand_id" id="brand_id" onchange="this.form.submit()" class="select min-w-[10rem]">
+                            <select name="brand_id" id="brand_id" onchange="this.form.submit()"
+                                class="select min-w-[10rem]">
                                 <option value="">เรียงตามแบรนด์</option>
                                 <?php
 
@@ -301,7 +307,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                         </form>
 
                         <form method="GET" class="">
-                            <select name="type_id" id="brand_id" onchange="this.form.submit()" class="select min-w-[10rem]">
+                            <select name="type_id" id="brand_id" onchange="this.form.submit()"
+                                class="select min-w-[10rem]">
                                 <option value="">เลือกหมวดหมู่อุปกรณ์</option>
                                 <?php
 
@@ -367,8 +374,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                         $models = [];
 
 
-                        foreach ($result as  $row) {
-              
+                        foreach ($result as $row) {
+
                             $models[] = [
                                 'model_id' => $row['model_id'],
                                 'model_name' => $row['model_name'],
@@ -385,8 +392,7 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                                 onclick="window.location.href='device_detail.php?model_id=<?php echo $device['model_id']; ?>'">
 
                                 <figure class="relative">
-                                    <img src="<?php echo $device['img_path']; ?>"
-                                        alt="<?php echo $device['model_name']; ?>"
+                                    <img src="<?php echo $device['img_path']; ?>" alt="<?php echo $device['model_name']; ?>"
                                         class="w-full h-48 object-cover" />
                                     <div class="card-overlay">
                                         <span><i class="fas fa-eye mr-2"></i>ดูรายละเอียด</span>
@@ -395,15 +401,17 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                                 </figure>
                                 <div class="card-body p-4">
                                     <h2 class="card-title text-lg"><?php echo $device['model_name']; ?></h2>
-                                    <p class="text-gray-600"><?php echo $device['brand_name']; ?>  </p>
-                                    <h3 class=" "> ราคาเช่าต่อเดือน: <span class="text-lg font-bold"><?= $device['price_per_month'] ?></span></h3>
+                                    <p class="text-gray-600"><?php echo $device['brand_name']; ?> </p>
+                                    <h3 class=" "> ราคาเช่าต่อเดือน: <span
+                                            class="text-lg font-bold"><?= $device['price_per_month'] ?></span></h3>
                                     <div class="flex items-center justify-between mt-2">
                                         <span class="text-sm text-gray-500">
                                             <i class="fas fa-hashtag mr-1"></i>
                                             <?php echo $device['serial_count']; ?> รายการ
                                         </span>
-                                        <span class="badge text-white <?php echo $device['available_serial'] > 0 ? 'badge-success' : 'badge-error'; ?> text-xs px-3 py-1">
-                                            <?php echo $device['available_serial'] > 0 ? 'ว่าง ' . $device['available_serial'] : 'ถูกเช่าหมดแล้ว'; ?> 
+                                        <span
+                                            class="badge text-white <?php echo $device['available_serial'] > 0 ? 'badge-success' : 'badge-error'; ?> text-xs px-3 py-1">
+                                            <?php echo $device['available_serial'] > 0 ? 'ว่าง ' . $device['available_serial'] : 'ถูกเช่าหมดแล้ว'; ?>
                                         </span>
 
                                     </div>
@@ -420,7 +428,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
     <dialog id="add_model_modal" class="modal">
         <div class="modal-box w-11/12 max-w-3xl max-h-[90vh] overflow-y-auto">
             <div class="flex items-center mb-6">
-                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <div
+                    class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                     <i class="fas fa-laptop text-white text-lg"></i>
                 </div>
                 <div class="ml-4">
@@ -429,7 +438,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                 </div>
             </div>
 
-            <form id="add_model_form" method="post" action="device_db.php" enctype="multipart/form-data" class="space-y-6">
+            <form id="add_model_form" method="post" action="device_db.php" enctype="multipart/form-data"
+                class="space-y-6">
                 <input type="hidden" name="_method" value="POST">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -453,7 +463,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                                 แบรนด์
                             </span>
                         </label>
-                        <select name="brand_id" class="select select-bordered w-full focus:border-purple-500 transition-colors" required>
+                        <select name="brand_id"
+                            class="select select-bordered w-full focus:border-purple-500 transition-colors" required>
                             <option disabled selected>เลือกแบรนด์</option>
                             <?php foreach ($brand as $row): ?>
                                 <option value="<?php echo $row['brand_id'] ?>"><?php echo $row['brand_name'] ?></option>
@@ -468,7 +479,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                                 หมวดหมู่
                             </span>
                         </label>
-                        <select name="type_id" class="select select-bordered w-full focus:border-purple-500 transition-colors" required>
+                        <select name="type_id"
+                            class="select select-bordered w-full focus:border-purple-500 transition-colors" required>
                             <option disabled selected>เลือกหมวดหมู่อุปกรณ์</option>
                             <?php foreach ($type as $row): ?>
                                 <option value="<?php echo $row['type_id'] ?>"><?php echo $row['type_name'] ?></option>
@@ -482,7 +494,7 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                                 ราคาเช่าต่อเดือน
                             </span>
                         </label>
-                          <input type="number" min="1" slot="2" name="price_per_month" placeholder="1000.00"
+                        <input type="number" min="1" slot="2" name="price_per_month" placeholder="1000.00"
                             class="input input-bordered w-full focus:border-blue-500 transition-colors" required>
                     </div>
                 </div>
@@ -518,8 +530,8 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                     </div>
 
                     <!-- Hidden File Input -->
-                    <input type="file" id="imageInput" name="model_images[]" multiple accept="image/*"
-                        class="hidden" onchange="previewImages(this)">
+                    <input type="file" id="imageInput" name="model_images[]" multiple accept="image/*" class="hidden"
+                        onchange="previewImages(this)">
                 </div>
 
                 <!-- Image Preview Section -->
@@ -533,10 +545,42 @@ $type = mysqli_query($conn, "SELECT * FROM type")
                             <span id="imageCount">0</span> รูป
                         </span>
                     </label>
-                    <div id="imagePreviewGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg max-h-60 overflow-y-auto">
+                    <div id="imagePreviewGrid"
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg max-h-60 overflow-y-auto">
                         <!-- Preview images will be inserted here -->
                     </div>
                 </div>
+
+                <!-- Specifications Section (Dynamic Add) -->
+                <div class="border-t pt-6 mt-6">
+                    <h4 class="font-bold text-lg mb-4 flex items-center text-gray-800">
+                        <i class="fas fa-list mr-2 text-indigo-500"></i>
+                        รายละเอียดสเปกสินค้า (เพิ่มได้ไม่จำกัด)
+                    </h4>
+
+                    <div id="specContainer" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 spec-item">
+                            <div class="form-control">
+                                <input type="text" name="spec_name[]" placeholder="ชื่อสเปก เช่น Screen Size"
+                                    class="input input-bordered w-full" />
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" name="spec_value[]" placeholder="ค่าของสเปก เช่น 15.6 inch"
+                                    class="input input-bordered w-full" />
+                                <button type="button" class="btn btn-error btn-sm" onclick="removeSpec(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="button" class="btn btn-outline btn-primary btn-sm" onclick="addSpecField()">
+                            <i class="fas fa-plus mr-2"></i> เพิ่มสเปก
+                        </button>
+                    </div>
+                </div>
+
 
                 <!-- Form Actions -->
                 <div class="modal-action pt-6 border-t">
@@ -568,6 +612,33 @@ $type = mysqli_query($conn, "SELECT * FROM type")
     ?>
 
     <script src="./../scripts/main.js"></script>
+
+    <script>
+        function addSpecField() {
+            const container = document.getElementById('specContainer');
+            const specItem = document.createElement('div');
+            specItem.className = 'grid grid-cols-1 md:grid-cols-2 gap-4 spec-item';
+            specItem.innerHTML = `
+    <div class="form-control">
+      <input type="text" name="spec_name[]" placeholder="ชื่อสเปก เช่น Processor"
+        class="input input-bordered w-full" />
+    </div>
+    <div class="flex gap-2">
+      <input type="text" name="spec_value[]" placeholder="ค่าของสเปก เช่น AMD Ryzen 7"
+        class="input input-bordered w-full" />
+      <button type="button" class="btn btn-error btn-sm" onclick="removeSpec(this)">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  `;
+            container.appendChild(specItem);
+        }
+
+        function removeSpec(button) {
+            button.closest('.spec-item').remove();
+        }
+    </script>
+
 
     <script>
         let selectedImages = [];

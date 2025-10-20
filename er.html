@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive ERD Visualizer</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        select, input[type="range"] {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .zoom-display {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #495057;
+        }
+
+        .diagram-container {
+            position: relative;
+            height: 800px;
+            overflow: auto;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .diagram {
+            position: relative;
+            width: 2000px;
+            height: 1200px;
+            transform-origin: 0 0;
+            transition: transform 0.3s ease;
+        }
+
+        .table {
+            position: absolute;
+            background: white;
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .table:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .table.highlighted {
+            border-color: #e74c3c;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .table-header {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-icon {
+            width: 20px;
+            height: 20px;
+            background: #3498db;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .field {
+            padding: 8px 16px;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .field:last-child {
+            border-bottom: none;
+        }
+
+        .field-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .pk { background: #e74c3c; }
+        .fk { background: #f39c12; }
+        .regular { background: #95a5a6; }
+
+        .field-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .field-type {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-left: auto;
+        }
+
+        .connection {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: #3498db;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .connection.highlighted .connection-line {
+            stroke: #e74c3c;
+            stroke-width: 3;
+        }
+
+        .legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stats {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Interactive ERD Visualizer</h1>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Highlight Table:</label>
+                <select id="tableSelect">
+                    <option value="">Select a table...</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Zoom:</label>
+                <input type="range" id="zoomSlider" min="0.3" max="1.5" step="0.1" value="1">
+                <span class="zoom-display" id="zoomDisplay">100%</span>
+            </div>
+            <div class="control-group">
+                <button onclick="resetView()" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer;">Reset View</button>
+            </div>
+        </div>
+
+        <div class="diagram-container" id="diagramContainer">
+            <div class="diagram" id="diagram">
+                <svg id="connections" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="field-icon pk">PK</div>
+                    <span>Primary Key</span>
+                </div>
+                <div class="legend-item">
+                    <div class="field-icon fk">FK</div>
+                    <span>Foreign Key</span>
+                </div>
+                <div class="legend-item">
+                    <div class="field-icon regular">•</div>
+                    <span>Regular Field</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="tableCount">11</div>
+                <div class="stat-label">Tables</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="relationshipCount">10</div>
+                <div class="stat-label">Relationships</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="fieldCount">45</div>
+                <div class="stat-label">Total Fields</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tables = {
+            admin: {
+                x: 100, y: 100,
+                fields: [
+                    {name: 'admin_id', type: 'int', key: 'PK'},
+                    {name: 'admin_name', type: 'varchar', key: ''},
+                    {name: 'admin_password', type: 'varchar', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''},
+                    {name: 'tel', type: 'varchar', key: ''},
+                    {name: 'role', type: 'enum', key: ''}
+                ]
+            },
+            brand: {
+                x: 400, y: 100,
+                fields: [
+                    {name: 'brand_id', type: 'int', key: 'PK'},
+                    {name: 'brand_name', type: 'varchar', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''}
+                ]
+            },
+            type: {
+                x: 700, y: 100,
+                fields: [
+                    {name: 'type_id', type: 'int', key: 'PK'},
+                    {name: 'type_name', type: 'varchar', key: ''}
+                ]
+            },
+            model: {
+                x: 550, y: 300,
+                fields: [
+                    {name: 'model_id', type: 'int', key: 'PK'},
+                    {name: 'brand_id', type: 'int', key: 'FK'},
+                    {name: 'model_name', type: 'varchar', key: ''},
+                    {name: 'type_id', type: 'int', key: 'FK'},
+                    {name: 'create_At', type: 'timestamp', key: ''},
+                    {name: 'price_per_month', type: 'decimal', key: ''}
+                ]
+            },
+            model_img: {
+                x: 850, y: 300,
+                fields: [
+                    {name: 'model_img_id', type: 'int', key: 'PK'},
+                    {name: 'model_id', type: 'int', key: 'FK'},
+                    {name: 'img_path', type: 'varchar', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''}
+                ]
+            },
+            device: {
+                x: 300, y: 500,
+                fields: [
+                    {name: 'device_id', type: 'int', key: 'PK'},
+                    {name: 'serial_number', type: 'varchar', key: ''},
+                    {name: 'status', type: 'enum', key: ''},
+                    {name: 'model_id', type: 'int', key: 'FK'},
+                    {name: 'create_At', type: 'timestamp', key: ''}
+                ]
+            },
+            user: {
+                x: 100, y: 700,
+                fields: [
+                    {name: 'user_id', type: 'int', key: 'PK'},
+                    {name: 'user_name', type: 'varchar', key: ''},
+                    {name: 'location', type: 'varchar', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''},
+                    {name: 'phone', type: 'varchar', key: ''}
+                ]
+            },
+            rent: {
+                x: 400, y: 700,
+                fields: [
+                    {name: 'rent_id', type: 'int', key: 'PK'},
+                    {name: 'user_id', type: 'int', key: 'FK'},
+                    {name: 'start_date', type: 'timestamp', key: ''},
+                    {name: 'end_date', type: 'timestamp', key: ''},
+                    {name: 'file_lease', type: 'varchar', key: ''},
+                    {name: 'rent_status', type: 'enum', key: ''},
+                    {name: 'total_amount', type: 'decimal', key: ''},
+                    {name: 'payment_type', type: 'enum', key: ''},
+                    {name: 'pm_latest', type: 'timestamp', key: ''}
+                ]
+            },
+            rent_detail: {
+                x: 700, y: 700,
+                fields: [
+                    {name: 'rent_detail_id', type: 'int', key: 'PK'},
+                    {name: 'device_id', type: 'int', key: 'FK'},
+                    {name: 'rent_id', type: 'int', key: 'FK'},
+                    {name: 'machine_status', type: 'enum', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''},
+                    {name: 'backup_device', type: 'tinyint', key: ''}
+                ]
+            },
+            payment: {
+                x: 100, y: 900,
+                fields: [
+                    {name: 'payment_id', type: 'int', key: 'PK'},
+                    {name: 'due_date', type: 'datetime', key: ''},
+                    {name: 'amount', type: 'decimal', key: ''},
+                    {name: 'status', type: 'enum', key: ''},
+                    {name: 'paid_at', type: 'timestamp', key: ''},
+                    {name: 'type', type: 'enum', key: ''},
+                    {name: 'rent_id', type: 'int', key: 'FK'},
+                    {name: 'slip_file', type: 'varchar', key: ''}
+                ]
+            },
+            pm: {
+                x: 700, y: 900,
+                fields: [
+                    {name: 'pm_id', type: 'int', key: 'PK'},
+                    {name: 'rent_id', type: 'int', key: 'FK'},
+                    {name: 'pm_date', type: 'date', key: ''},
+                    {name: 'note', type: 'text', key: ''},
+                    {name: 'create_At', type: 'timestamp', key: ''}
+                ]
+            }
+        };
+
+        const relationships = [
+            {from: 'model', to: 'brand', fromField: 'brand_id', toField: 'brand_id'},
+            {from: 'model', to: 'type', fromField: 'type_id', toField: 'type_id'},
+            {from: 'device', to: 'model', fromField: 'model_id', toField: 'model_id'},
+            {from: 'model_img', to: 'model', fromField: 'model_id', toField: 'model_id'},
+            {from: 'rent', to: 'user', fromField: 'user_id', toField: 'user_id'},
+            {from: 'rent_detail', to: 'rent', fromField: 'rent_id', toField: 'rent_id'},
+            {from: 'rent_detail', to: 'device', fromField: 'device_id', toField: 'device_id'},
+            {from: 'payment', to: 'rent', fromField: 'rent_id', toField: 'rent_id'},
+            {from: 'pm', to: 'rent', fromField: 'rent_id', toField: 'rent_id'}
+        ];
+
+        let isDragging = false;
+        let dragElement = null;
+        let dragOffset = {x: 0, y: 0};
+
+        function createTable(tableName, tableData) {
+            const table = document.createElement('div');
+            table.className = 'table';
+            table.id = `table-${tableName}`;
+            table.style.left = `${tableData.x}px`;
+            table.style.top = `${tableData.y}px`;
+
+            const header = document.createElement('div');
+            header.className = 'table-header';
+            header.innerHTML = `
+                <div class="table-icon">📋</div>
+                ${tableName}
+            `;
+
+            table.appendChild(header);
+
+            tableData.fields.forEach(field => {
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'field';
+                
+                const iconClass = field.key === 'PK' ? 'pk' : field.key === 'FK' ? 'fk' : 'regular';
+                const iconText = field.key === 'PK' ? 'PK' : field.key === 'FK' ? 'FK' : '•';
+                
+                fieldDiv.innerHTML = `
+                    <div class="field-icon ${iconClass}">${iconText}</div>
+                    <span class="field-name">${field.name}</span>
+                    <span class="field-type">${field.type}</span>
+                `;
+
+                table.appendChild(fieldDiv);
+            });
+
+            // Add drag functionality
+            header.addEventListener('mousedown', startDrag);
+            table.addEventListener('mousedown', startDrag);
+
+            return table;
+        }
+
+        function startDrag(e) {
+            if (e.target.closest('.table-header') || e.target.closest('.table')) {
+                isDragging = true;
+                dragElement = e.target.closest('.table');
+                const rect = dragElement.getBoundingClientRect();
+                const containerRect = document.getElementById('diagram').getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
+                dragElement.style.zIndex = '1000';
+                e.preventDefault();
+            }
+        }
+
+        function drawConnections() {
+            const svg = document.getElementById('connections');
+            svg.innerHTML = '<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#3498db" /></marker></defs>';
+
+            relationships.forEach((rel, index) => {
+                const fromTable = document.getElementById(`table-${rel.from}`);
+                const toTable = document.getElementById(`table-${rel.to}`);
+                
+                if (fromTable && toTable) {
+                    const fromRect = fromTable.getBoundingClientRect();
+                    const toRect = toTable.getBoundingClientRect();
+                    const diagramRect = document.getElementById('diagram').getBoundingClientRect();
+
+                    const fromX = fromRect.left + fromRect.width / 2 - diagramRect.left;
+                    const fromY = fromRect.top + fromRect.height / 2 - diagramRect.top;
+                    const toX = toRect.left + toRect.width / 2 - diagramRect.left;
+                    const toY = toRect.top + toRect.height / 2 - diagramRect.top;
+
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const midX = (fromX + toX) / 2;
+                    const midY = (fromY + toY) / 2;
+                    
+                    line.setAttribute('d', `M ${fromX} ${fromY} Q ${midX} ${midY} ${toX} ${toY}`);
+                    line.setAttribute('class', 'connection-line');
+                    line.setAttribute('data-from', rel.from);
+                    line.setAttribute('data-to', rel.to);
+
+                    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    g.setAttribute('class', 'connection');
+                    g.appendChild(line);
+                    svg.appendChild(g);
+                }
+            });
+        }
+
+        function highlightTable(tableName) {
+            // Remove all highlights
+            document.querySelectorAll('.table').forEach(table => {
+                table.classList.remove('highlighted');
+            });
+            document.querySelectorAll('.connection').forEach(conn => {
+                conn.classList.remove('highlighted');
+            });
+
+            if (tableName) {
+                // Highlight selected table
+                const table = document.getElementById(`table-${tableName}`);
+                if (table) {
+                    table.classList.add('highlighted');
+                }
+
+                // Highlight related connections
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    const from = line.getAttribute('data-from');
+                    const to = line.getAttribute('data-to');
+                    if (from === tableName || to === tableName) {
+                        line.parentElement.classList.add('highlighted');
+                    }
+                });
+            }
+        }
+
+        function resetView() {
+            document.getElementById('zoomSlider').value = 1;
+            updateZoom();
+            document.getElementById('tableSelect').value = '';
+            highlightTable('');
+        }
+
+        function updateZoom() {
+            const zoom = document.getElementById('zoomSlider').value;
+            const diagram = document.getElementById('diagram');
+            diagram.style.transform = `scale(${zoom})`;
+            document.getElementById('zoomDisplay').textContent = `${Math.round(zoom * 100)}%`;
+            
+            // Redraw connections after zoom
+            setTimeout(drawConnections, 100);
+        }
+
+        // Initialize
+        function init() {
+            const diagram = document.getElementById('diagram');
+            const tableSelect = document.getElementById('tableSelect');
+
+            // Create tables
+            Object.entries(tables).forEach(([name, data]) => {
+                const table = createTable(name, data);
+                diagram.appendChild(table);
+                
+                // Add to select dropdown
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                tableSelect.appendChild(option);
+            });
+
+            // Draw initial connections
+            setTimeout(drawConnections, 100);
+
+            // Event listeners
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && dragElement) {
+                    const containerRect = document.getElementById('diagram').getBoundingClientRect();
+                    const zoom = parseFloat(document.getElementById('zoomSlider').value);
+                    
+                    const newX = (e.clientX - containerRect.left - dragOffset.x) / zoom;
+                    const newY = (e.clientY - containerRect.top - dragOffset.y) / zoom;
+                    
+                    dragElement.style.left = `${newX}px`;
+                    dragElement.style.top = `${newY}px`;
+                    
+                    drawConnections();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && dragElement) {
+                    dragElement.style.zIndex = '';
+                    isDragging = false;
+                    dragElement = null;
+                }
+            });
+
+            tableSelect.addEventListener('change', (e) => {
+                highlightTable(e.target.value);
+            });
+
+            document.getElementById('zoomSlider').addEventListener('input', updateZoom);
+        }
+
+        init();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9895caa3d39bce3d',t:'MTc1OTU5MjU3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
